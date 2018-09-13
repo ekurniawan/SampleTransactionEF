@@ -54,6 +54,8 @@ Public Class TransaksiDAL
         End Using
     End Sub
 
+
+    'transaksi tanpa Scope
     Public Sub InsertTransaksiWithoutTS(_trans As Transaksi)
         Using _db As New SampleAPIDbEntities
             Try
