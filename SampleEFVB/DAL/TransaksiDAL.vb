@@ -1,5 +1,11 @@
 ﻿
 Public Class TransaksiDAL
+
+    Private _db As SampleAPIDbEntities
+    Public Sub New()
+        _db = New SampleAPIDbEntities()
+    End Sub
+
     Public Function InsertTransaksi(_tran As Transaksi, _db As SampleAPIDbEntities) As Integer
         Try
             _db.Transaksi.Add(_tran)
@@ -39,32 +45,55 @@ Public Class TransaksiDAL
     End Sub
 
     Public Sub InsertTransaksiBL(_trans As Transaksi)
-        Using _db As New SampleAPIDbEntities
-            Using scope = _db.Database.BeginTransaction()
-                Try
-                    Dim _transId = InsertTransaksi(_trans, _db)
-                    Dim _currBal = GetBalanceByUser(_trans.Nim, _db)
-                    UpdateBalance(_transId, _currBal, _db)
 
-                    scope.Commit()
-                Catch ex As Exception
-                    Throw New Exception($"{ex.Message}")
-                End Try
-            End Using
+        Using scope = _db.Database.BeginTransaction()
+            Try
+                Dim _transId = InsertTransaksi(_trans, _db)
+                Dim _currBal = GetBalanceByUser(_trans.Nim, _db)
+                UpdateBalance(_transId, _currBal, _db)
+
+                scope.Commit()
+            Catch ex As Exception
+                Throw New Exception($"{ex.Message}")
+            End Try
         End Using
+
     End Sub
 
 
     'transaksi tanpa Scope
     Public Sub InsertTransaksiWithoutTS(_trans As Transaksi)
-        Using _db As New SampleAPIDbEntities
-            Try
-                Dim _transId = InsertTransaksi(_trans, _db)
-                Dim _currBal = GetBalanceByUser(_trans.Nim, _db)
-                UpdateBalance(_transId, _currBal, _db)
-            Catch ex As Exception
-                Throw New Exception($"{ex.Message}")
-            End Try
-        End Using
+
+        Try
+            Dim _transId = InsertTransaksi(_trans, _db)
+            Dim _currBal = GetBalanceByUser(_trans.Nim, _db)
+            UpdateBalance(_transId, _currBal, _db)
+        Catch ex As Exception
+            Throw New Exception($"{ex.Message}")
+        End Try
+
     End Sub
+
+    'Public Function GetDataTransaksiDetail() As IEnumerable(Of Transaksi)
+    '    Using _db As New SampleAPIDbEntities
+    '        Return _db.Transaksi.ToList()
+    '    End Using
+    'End Function
+
+    Public Function GetDataTransaksiDetail() As IEnumerable(Of TransaksiDetail)
+        Dim results As IEnumerable(Of TransaksiDetail)
+
+        results = (From tr In _db.Transaksi.Include("JenisTransaksi").Include("Mahasiswa").AsNoTracking()
+                   Select New TransaksiDetail With {
+                          .TransaksiID = tr.TransaksiID,
+                          .IdJenis = tr.IdJenis,
+                          .NamaJenis = tr.JenisTransaksi.NamaJenis,
+                          .Nim = tr.Nim,
+                          .Nama = tr.Mahasiswa.Nama,
+                          .CurrBalance = tr.CurrBalance,
+                          .Debet = tr.Debet,
+                          .Kredit = tr.Kredit})
+
+        Return results
+    End Function
 End Class

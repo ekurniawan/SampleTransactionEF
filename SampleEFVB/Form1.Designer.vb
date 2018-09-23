@@ -32,6 +32,9 @@ Partial Class Form1
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.dgvData = New System.Windows.Forms.DataGridView()
+        Me.btnGet = New System.Windows.Forms.Button()
+        CType(Me.dgvData, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Button1
@@ -116,11 +119,30 @@ Partial Class Form1
         Me.Label1.TabIndex = 10
         Me.Label1.Text = "Nim :"
         '
+        'dgvData
+        '
+        Me.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvData.Location = New System.Drawing.Point(12, 185)
+        Me.dgvData.Name = "dgvData"
+        Me.dgvData.Size = New System.Drawing.Size(519, 150)
+        Me.dgvData.TabIndex = 20
+        '
+        'btnGet
+        '
+        Me.btnGet.Location = New System.Drawing.Point(201, 12)
+        Me.btnGet.Name = "btnGet"
+        Me.btnGet.Size = New System.Drawing.Size(75, 23)
+        Me.btnGet.TabIndex = 21
+        Me.btnGet.Text = "Get Data"
+        Me.btnGet.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(543, 450)
+        Me.Controls.Add(Me.btnGet)
+        Me.Controls.Add(Me.dgvData)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.btnSubmit)
         Me.Controls.Add(Me.txtKredit)
@@ -133,6 +155,7 @@ Partial Class Form1
         Me.Controls.Add(Me.Label1)
         Me.Name = "Form1"
         Me.Text = "Form1"
+        CType(Me.dgvData, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -148,4 +171,6 @@ Partial Class Form1
     Friend WithEvents Label3 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
+    Friend WithEvents dgvData As DataGridView
+    Friend WithEvents btnGet As Button
 End Class
