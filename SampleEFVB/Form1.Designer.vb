@@ -34,6 +34,7 @@ Partial Class Form1
         Me.Label1 = New System.Windows.Forms.Label()
         Me.dgvData = New System.Windows.Forms.DataGridView()
         Me.btnGet = New System.Windows.Forms.Button()
+        Me.btnGetDataDirect = New System.Windows.Forms.Button()
         CType(Me.dgvData, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -133,14 +134,24 @@ Partial Class Form1
         Me.btnGet.Name = "btnGet"
         Me.btnGet.Size = New System.Drawing.Size(75, 23)
         Me.btnGet.TabIndex = 21
-        Me.btnGet.Text = "Get Data"
+        Me.btnGet.Text = "Get Data DAL"
         Me.btnGet.UseVisualStyleBackColor = True
+        '
+        'btnGetDataDirect
+        '
+        Me.btnGetDataDirect.Location = New System.Drawing.Point(293, 13)
+        Me.btnGetDataDirect.Name = "btnGetDataDirect"
+        Me.btnGetDataDirect.Size = New System.Drawing.Size(75, 22)
+        Me.btnGetDataDirect.TabIndex = 22
+        Me.btnGetDataDirect.Text = "Get Data Direct"
+        Me.btnGetDataDirect.UseVisualStyleBackColor = True
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(543, 450)
+        Me.Controls.Add(Me.btnGetDataDirect)
         Me.Controls.Add(Me.btnGet)
         Me.Controls.Add(Me.dgvData)
         Me.Controls.Add(Me.Button1)
@@ -173,4 +184,5 @@ Partial Class Form1
     Friend WithEvents Label1 As Label
     Friend WithEvents dgvData As DataGridView
     Friend WithEvents btnGet As Button
+    Friend WithEvents btnGetDataDirect As Button
 End Class
